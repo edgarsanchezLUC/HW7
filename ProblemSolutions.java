@@ -1,7 +1,7 @@
 /******************************************************************
  *
  *   YOUR NAME / SECTION NUMBER
- *
+ *   Edgar Sanchez / 002
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
  *
@@ -41,7 +41,26 @@ public class ProblemSolutions {
             // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
             // "SELECTION SORT" ALGORITHM.
             // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            // Start at 0, look for the least in the array
+            // set as the minimum
+            int minIndex = i;
+            // go through the rest of the array and look for the min value
+            for (int j = i+1; j < n; j++) {
+                // when found, swap the values 
+                if (ascending) {
+                    if (values[j] < values[minIndex]) {
+                        minIndex = j;
+                    }
+                } else {
+                    if (values[j] > values[minIndex]) {
+                        minIndex = j;
+                    }
+                }
 
+            }
+            int temp = values[i];
+            values[i] = values[minIndex];
+            values[minIndex] = temp;
         }
 
     } // End class selectionSort
@@ -101,7 +120,67 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
+        
+        // get the number of items in each array for left and right
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        // make temporary arrays for testing
+        int[] temp1 = new int[n1];
+        int[] temp2 = new int[n2];
 
+        // add in the elements from arr into the temps
+        for (int i = 0; i < n1; i++) {
+            temp1[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            temp2[j] = arr[mid + 1 + j];
+        }
+
+        int i = 0, j = 0;
+        int write = left;
+
+        // start w/ divisible by k
+        while (i < n1 && j < n2) {
+            boolean leftDiv = (temp1[i] % k == 0);
+            boolean rightDiv = (temp2[j] % k == 0);
+            // check if both are divisible
+            if (leftDiv && rightDiv) {
+                //if true, then check which one is lower
+                if (temp1[i] <= temp2[j]) {
+                    // if left is less
+                    // put left and check next
+                    arr[write++] = temp1[i++];
+                } else {
+                    // temp2 is less
+                    // put right and check next
+                    arr[write++] = temp2[j++];
+                }
+            } // if only one is divisible (left only first)
+            else if (leftDiv && !rightDiv) {
+                arr[write++] = temp1[i++];
+            } // if only right is divisible
+            else if (!leftDiv && rightDiv) {
+                arr[write++] = temp2[j++];
+            } // otherwise, none are divisible so we break out of the while loop
+            else {
+                break;
+            }
+        }
+        // that should cover all numbers divisble by k
+        // move on to the ones not divisible and go in order
+        while (i < n1 && j < n2) {
+            if (temp1[i] <= temp2[j]) {
+                arr[write++] = temp1[i++];
+            } else {
+                arr[write++] = temp2[j++];
+            }
+        }
+        while (i < n1) {
+            arr[write++] = temp1[i++];
+        }
+        while (j < n2) {
+            arr[write++] = temp2[j++];
+        }
         return;
 
     }
