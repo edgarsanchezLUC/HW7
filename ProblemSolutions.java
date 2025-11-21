@@ -222,8 +222,20 @@ public class ProblemSolutions {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
-
-        return false;
+        int n = asteroids.length - 1;
+        // for each asteroid, check it to the mass
+        int i = 0;
+        while (i <= n) {
+            // if planet has more mass, add asteroid to planet mass
+            if (mass >= asteroids[i]) {
+                mass += asteroids[i++];
+            } // else, the planet was destroyed, return false
+            else {
+                return false;
+            }
+        }
+        // return true since false is already set
+        return true;
 
     }
 
