@@ -272,8 +272,26 @@ public class ProblemSolutions {
     public static int numRescueSleds(int[] people, int limit) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        if (people.length == 0) {
+            return 0;
+        }
+        Arrays.sort(people);
+        int sleds = 0;
+        int n = people.length - 1;
+        int i = 0;
+        while (i <= n) {
+            // first case, two people fit
+            if (i+1 <= n && people[i] + people[i+1] <= limit) {
+                sleds++;
+                i+=2;
+            } // else only one person fits
+            else {
+                sleds++;
+                i++;
+            }
 
-        return -1;
+        }
+        return sleds;
 
     }
 
