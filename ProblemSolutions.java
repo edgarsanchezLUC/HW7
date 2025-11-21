@@ -144,22 +144,10 @@ public class ProblemSolutions {
             boolean leftDiv = (temp1[i] % k == 0);
             boolean rightDiv = (temp2[j] % k == 0);
             // check if both are divisible
-            if (leftDiv && rightDiv) {
-                //if true, then check which one is lower
-                if (temp1[i] <= temp2[j]) {
-                    // if left is less
-                    // put left and check next
-                    arr[write++] = temp1[i++];
-                } else {
-                    // temp2 is less
-                    // put right and check next
-                    arr[write++] = temp2[j++];
-                }
-            } // if only one is divisible (left only first)
-            else if (leftDiv && !rightDiv) {
+            if (leftDiv) {
                 arr[write++] = temp1[i++];
             } // if only right is divisible
-            else if (!leftDiv && rightDiv) {
+            else if (rightDiv) {
                 arr[write++] = temp2[j++];
             } // otherwise, none are divisible so we break out of the while loop
             else {
